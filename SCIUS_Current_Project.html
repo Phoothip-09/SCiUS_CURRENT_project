@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scius CURRENT | The Truth Matters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A369D; 
+            --accent: #D92323;  
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, .brand, .card-title, .section-title {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Glassmorphism Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+
+        .brand {
+            font-size: 2.2em;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--dark);
+            text-decoration: none;
+        }
+        .brand span { color: var(--primary); }
+        .brand .tagline {
+            display: block;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.35em;
+            letter-spacing: 3px;
+            color: var(--gray);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        nav { display: flex; gap: 25px; }
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 700;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            position: relative;
+            padding: 5px 0;
+            letter-spacing: 0.5px;
+        }
+        nav a:hover { color: var(--primary); }
+
+        /* Ticker */
+        .ticker {
+            margin-top: 80px; 
+            background: var(--accent);
+            color: white;
+            padding: 10px 0;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            overflow: hidden;
+            white-space: nowrap;
+            letter-spacing: 1px;
+        }
+        .ticker span {
+            display: inline-block;
+            animation: tickerSlide 25s linear infinite;
+        }
+        @keyframes tickerSlide {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Hero Carousel Section */
+        .hero {
+            position: relative;
+            width: 95%;
+            max-width: 1300px;
+            margin: 40px auto;
+            background-color: var(--dark);
+            background-size: cover;
+            background-position: center;
+            border-radius: 24px;
+            overflow: hidden;
+            color: white;
+            padding: 100px 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: flex-end;
+            min-height: 500px;
+            transition: background-image 0.8s ease-in-out;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to right, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.2) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .hero-tag {
+            background: var(--accent);
+            padding: 6px 16px;
+            font-size: 0.85em;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .hero h1 {
+            font-size: 3.8em;
+            margin: 0 0 15px 0;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+        .hero p {
+            font-size: 1.25em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .hero-dots {
+            position: absolute;
+            bottom: 40px;
+            right: 50px;
+            z-index: 2;
+            display: flex;
+            gap: 12px;
+        }
+        .dot {
+            width: 10px; height: 10px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .dot.active { 
+            background: white; 
+            width: 30px;
+        }
+
+        /* News Grid Section */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 80px auto;
+        }
+        .section-title {
+            font-size: 2.5em;
+            border-bottom: 4px solid var(--primary);
+            padding-bottom: 10px;
+            margin: 60px 0 40px 0;
+            letter-spacing: -0.5px;
+            display: inline-block;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+        }
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-tag { color: var(--primary); font-weight: 800; font-size: 0.8em; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;}
+        .card-title { font-size: 1.6em; margin: 0 0 15px 0; color: var(--dark); line-height: 1.3; letter-spacing: -0.5px;}
+        .card-desc { font-size: 1em; color: var(--gray); margin-bottom: 25px; flex-grow: 1; line-height: 1.6;}
+
+        .btn { 
+            background: white; 
+            color: var(--dark); 
+            border: 2px solid var(--dark); 
+            padding: 12px 24px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            font-size: 0.9em; 
+            text-align: center; 
+            letter-spacing: 1px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .btn:hover { background: var(--dark); color: white; }
+        .btn-primary { background: var(--accent); color: white; border-color: var(--accent); }
+        .btn-primary:hover { background: #b91c1c; border-color: #b91c1c; }
+
+        /* Modal System */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); z-index: 2000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .modal-content { background: white; width: 90%; max-width: 650px; border-radius: 24px; padding: 40px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.3); animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes modalPop { 0% { transform: scale(0.95); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2em; cursor: pointer; color: var(--gray); line-height: 1; transition: color 0.3s; }
+        .close-btn:hover { color: var(--accent); }
+
+        .evidence-line { background: #f8fafc; padding: 18px; border-left: 4px solid var(--primary); margin-bottom: 12px; font-family: monospace; font-size: 1.05em; border-radius: 0 8px 8px 0; color: #334155;}
+        .host-opinion { margin-top: 35px; padding: 25px; background: var(--dark); color: white; border-radius: 16px; border-bottom: 5px solid #f59e0b; }
+        .host-opinion span { background: #f59e0b; color: black; padding: 4px 12px; font-weight: 800; font-size: 0.8em; text-transform: uppercase; border-radius: 50px; display: inline-block; margin-bottom: 15px; letter-spacing: 1px;}
+
+        /* Team Section Styles */
+        .team-section {
+            background: white;
+            padding: 80px 5%;
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 50px auto 0 auto;
+        }
+        .team-member {
+            background: var(--light);
+            padding: 30px 10px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s;
+        }
+        .team-member:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        .team-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--primary);
+            background-color: white;
+            padding: 4px;
+        }
+        .team-role { font-size: 0.8em; color: var(--gray); margin-bottom: 5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;}
+        .team-name { font-weight: 800; color: var(--dark); font-size: 1.1em; font-family: 'Outfit', sans-serif;}
+
+        @media (max-width: 900px) {
+            .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+        }
+
+        /* About Section */
+        .about-section { background: var(--dark); color: white; padding: 80px 5%; border-top: 5px solid var(--primary);}
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
+        .about-section a { color: #60a5fa; text-decoration: none; font-weight: 700; }
+        .about-section h2 { color: white; font-size: 2em; margin-bottom: 20px;}
+        .about-section p, .about-section li { color: #94a3b8; font-size: 1.1em; line-height: 1.8;}
+        .about-section li strong { color: white; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="brand">
+            Scius<span>CURRENT</span>
+            <span class="tagline">Investigative Comedy News</span>
+        </a>
+        <nav>
+            <a href="#hero-section">Latest News</a>
+            <a href="#campus">Campus Investigations</a>
+            <a href="#team">Our Team</a>
+            <a href="#about">About & Policy</a>
+        </nav>
+    </header>
+
+    <div class="ticker">
+        <span>🚨 SCANDAL IN THE DORMITORY: 10PM CURFEW BROKEN • GOGO BIKE RACING ENDS IN TEARS • GHOST SPOTTED IN LAUNDRY ROOM • WE VERIFY ALL TIMELINES BEFORE POSTING 🚨</span>
+    </div>
+
+    <!-- DYNAMIC CAROUSEL HERO SECTION -->
+    <section class="hero" id="hero-section">
+        <div class="hero-content" id="hero-content">
+            <div class="hero-tag" id="hero-tag">Breaking Investigation</div>
+            <h1 id="hero-title">Loading...</h1>
+            <p id="hero-desc">Fetching the latest verified news...</p>
+            <button class="btn btn-primary" id="hero-btn" onclick="openModal('dorm')">Launch Investigation</button>
+        </div>
+        <div class="hero-dots" id="hero-dots"></div>
+    </section>
+
+    <!-- GRID SECTION WITH CUSTOMIZABLE IMAGES -->
+    <div class="container">
+        <h2 class="section-title" id="campus">Campus Investigations</h2>
+        
+        <div class="news-grid">
+            
+            <div class="news-card">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="card-content">
+                    <div class="card-tag">Academic Crisis</div>
+                    <h3 class="card-title">Deadline Disaster: Teacher Ghosts Group Chat!</h3>
+                    <p class="card-desc">A project is failing because the teacher left the leader on 'Read'.</p>
+                    <button class="btn" onclick="openModal('ghostTeacher')">Examine Evidence</button>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=2064&auto=format&fit=crop');"></div>
+                <div class="card-content">
+                    <div class="card-tag">Group Work Betrayal</div>
+                    <h3 class="card-title">Love Over Labs? Student Ditches Project for Bingsu!</h3>
+                    <p class="card-desc">Claiming an 'emergency', a student skips the project meetup for a date.</p>
+                    <button class="btn" onclick="openModal('runaway')">Examine Evidence</button>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <!-- อัปเดตลิงก์รูปห้องซักผ้าแล้ว -->
+                <div class="card-image" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHTz0LQRIKZXVdK_ZrEnNQgX4lrEjYWhOmvZvoDjo3ZmhJ6UavoIfNrpjf&s=10');"></div>
+                <div class="card-content">
+                    <div class="card-tag">Paranormal</div>
+                    <h3 class="card-title">Ghost in the Laundry Room, or Just Avoiding Chores?</h3>
+                    <p class="card-desc">A student claims a tall shadow figure is haunting washing machine #3.</p>
+                    <button class="btn" onclick="openModal('laundryGhost')">Examine Evidence</button>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <!-- อัปเดตลิงก์รูปรถ Gogo Bike แล้ว -->
+                <div class="card-image" style="background-image: url('https://sdgs.crru.ac.th/wp-content/uploads/2024/09/01.jpg');"></div>
+                <div class="card-content">
+                    <div class="card-tag">Transportation Incident</div>
+                    <h3 class="card-title">GOGO BIKE CRASH: The 40 km/h Race That Broke the Basket</h3>
+                    <p class="card-desc">Students blame faulty brakes for crashing a shared bike into a bush.</p>
+                    <button class="btn" onclick="openModal('bike')">Examine Evidence</button>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="card-content">
+                    <div class="card-tag">Chemistry Lab</div>
+                    <h3 class="card-title">"OUI!" Partner Vanishes for 2 Hours During Experiment!</h3>
+                    <p class="card-desc">Did they go buy snacks, or did they really get bitten by an insect?</p>
+                    <button class="btn" onclick="openModal('lab')">Examine Evidence</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- OUR TEAM SECTION -->
+    <section class="team-section" id="team">
+        <h2 class="section-title" style="border-bottom: none; margin-bottom: 10px;">Meet The Investigative Team</h2>
+        <p style="color: var(--gray); font-size: 1.1em; max-width: 600px; margin: 0 auto;">The dedicated journalists behind SCIUS CURRENT uncovering the truth across the TU-SKR campus.</p>
+        
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="http://scius-tu.com/wp-content/uploads/2025/06/4-1.jpg" alt="Agent 4" class="team-img">
+                <div class="team-role">Field Reporter</div>
+                <div class="team-name">Agent #4</div>
+            </div>
+            <div class="team-member">
+                <img src="http://scius-tu.com/wp-content/uploads/2025/06/8-1.jpg" alt="Agent 8" class="team-img">
+                <div class="team-role">Lead Detective</div>
+                <div class="team-name">Agent #8</div>
+            </div>
+            <div class="team-member">
+                <img src="http://scius-tu.com/wp-content/uploads/2025/06/9-1.jpg" alt="Agent 9" class="team-img">
+                <div class="team-role">Fact Checker</div>
+                <div class="team-name">Agent #9</div>
+            </div>
+            <div class="team-member">
+                <img src="http://scius-tu.com/wp-content/uploads/2025/06/13-1.jpg" alt="Agent 13" class="team-img">
+                <div class="team-role">Data Analyst</div>
+                <div class="team-name">Agent #13</div>
+            </div>
+            <div class="team-member">
+                <img src="http://scius-tu.com/wp-content/uploads/2025/06/16-1.jpg" alt="Agent 16" class="team-img">
+                <div class="team-role">Chief Editor</div>
+                <div class="team-name">Agent #16</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section" id="about">
+        <div class="about-grid">
+            <div>
+                <h2>SCIUS TU-SKR</h2>
+                <p><strong>The Science Classrooms in University-Affiliated School Project</strong></p>
+                <p>This platform is created by M5 students from the SCIUS project (Thammasat University and Suankularb Wittayalai Rangsit School). Because our science and math curriculum is intense, we built this comedy news platform to laugh off the academic stress and document our daily campus survival.</p>
+                <p>Official Node: <a href="http://scius-tu.com/" target="_blank">scius-tu.com</a></p>
+            </div>
+            <div>
+                <h2>Our Editorial Standards</h2>
+                <ul style="line-height: 1.8;">
+                    <li><strong>No Fake News:</strong> We verify all timelines via LINE timestamps and Google Drive before publishing.</li>
+                    <li><strong>Two-Sided Confrontation:</strong> If a group leader complains, we interview the accused partner to ensure fairness.</li>
+                    <li><strong>Bias Policy:</strong> verified facts are presented neutrally. Our dramatic reactions are clearly labeled as "Host's Opinion" solely for comedy.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL (POPUP) SYSTEM FOR EVIDENCE -->
+    <div class="modal-overlay" id="evidenceModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="document.getElementById('evidenceModal').style.display='none'">&times;</span>
+            <h2 style="margin-top: 0; color: var(--primary); font-family: 'Outfit', sans-serif;" id="modalTitle">The Evidence Desk</h2>
+            <p style="color: #10b981; font-weight: 800; margin-bottom: 25px; letter-spacing: 1px;">✓ FACT-CHECKED & VERIFIED</p>
+            <div id="modalData"></div>
+            <div class="host-opinion" id="modalOpinion"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Interactions & Carousel -->
+    <script>
+        const evidenceDB = {
+            'dorm': { title: "Curfew Violation Log", evidence: ["[22:45:10] Dorm Teacher (LINE): 'A student was caught sneaking out after 22:00. This is a severe rule violation.'", "[07:00:00] Dorm Teacher (LINE): 'Consequence: The entire grade will report to the main hall with mops and buckets at 16:00 today.'"], opinion: "OUI! Breaking curfew for a snack? Now the whole grade is snacking on dust and floor cleaner! A true tragedy for everyone involved!" },
+            'ghostTeacher': { title: "Project Approval Chat Log", evidence: ["[Tuesday, 09:00] Leader: 'Teacher, here is our topic draft. Please approve.' (Status: Read)", "[Thursday, 20:00] Group Member: 'Did the teacher reply yet? We need to start working!!'"], opinion: "OUI! The classic 'Read but no reply' from a teacher is deadly! But fighting among yourselves won't magically finish the project before tomorrow's deadline!" },
+            'runaway': { title: "Social Media vs Chat Logs", evidence: ["[13:00:00] Runaway Partner: 'Guys, huge emergency. Can't make it to the library today.'", "[14:30:00] IG Story Upload: Photo of two spoons in a Bingsu bowl with heart emojis at Future Park."], opinion: "OUI! Love might be blind, but your teacher grading this presentation has perfect 20/20 vision! Don't leave your group hanging for bingsu!" },
+            'laundryGhost': { title: "Paranormal Photographic Analysis", evidence: ["[02:15:00] Terrified Student: *Sends blurry photo of a dark figure* 'GHOST!! HELP!!'", "[02:20:00] Roommate: *Sends clear photo with flash on* 'Bro... that's the dorm teacher's mop leaning against a drying rack.'"], opinion: "OUI! The only thing scary in that laundry room is the smell of your unwashed socks! Stop blaming spirits and do chores!" },
+            'bike': { title: "Gogo Bike Incident Report", evidence: ["[17:15:00] Competitor's IG Story: Video showing the two racing side-by-side, yelling 'I am speed!'", "[17:17:30] Group Chat: 'Help, my bike is in a bush and the basket fell off.'"], opinion: "OUI! Those Gogo bikes are for getting to class, not for Mario Kart! The only thing broken faster than that basket is your dignity!" },
+            'lab': { title: "Chemistry Lab Timeline", evidence: ["[14:05:22] Missing Partner: 'Got bit by something, it burns! Heading to the nurse.'", "[15:55:10] Group Leader: 'Where have you been for 2 hours?! I washed all the test tubes myself!'"], opinion: "OUI! Whether it was an insect bite or a snack run, leaving your partner with all the test tubes is a dramatic move worthy of a talk show!" }
+        };
+
+        function openModal(caseId) {
+            const data = evidenceDB[caseId];
+            const modal = document.getElementById('evidenceModal');
+            document.getElementById('modalTitle').innerText = data.title;
+            let evHTML = '';
+            data.evidence.forEach(line => { evHTML += `<div class="evidence-line">${line}</div>`; });
+            document.getElementById('modalData').innerHTML = evHTML;
+            document.getElementById('modalOpinion').innerHTML = `<span>Host's Opinion</span><p style="margin: 0; font-size: 1.1em; line-height: 1.6; font-weight: 600;">"${data.opinion}"</p><p style="margin: 15px 0 0 0; font-size: 0.8em; color: #94a3b8; font-style: italic;">*Disclaimer: Host reactions are strictly for comedy.</p>`;
+            modal.style.display = 'flex';
+        }
+        function closeModal(event) { if (event.target === document.getElementById('evidenceModal')) { document.getElementById('evidenceModal').style.display = 'none'; } }
+
+        const slides = [
+            {
+                bg: "url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=2069')",
+                tag: "Breaking Investigation",
+                title: "LATE NIGHT LOCKDOWN: 10 PM Curfew Break Ends in Cleaning Spree!",
+                desc: "Disaster struck the dorms when a student snuck out. The entire grade is now paying the price with mops and buckets.",
+                caseId: "dorm"
+            },
+            {
+                /* อัปเดตลิงก์รูปห้องซักผ้าแล้ว */
+                bg: "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHTz0LQRIKZXVdK_ZrEnNQgX4lrEjYWhOmvZvoDjo3ZmhJ6UavoIfNrpjf&s=10')",
+                tag: "Paranormal",
+                title: "GHOST IN THE LAUNDRY ROOM, OR JUST AVOIDING CHORES?",
+                desc: "A student claims a tall shadow figure is haunting washing machine #3 at 2 AM. Roommates suspect it's an excuse to not wash socks.",
+                caseId: "laundryGhost"
+            },
+            {
+                bg: "url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070')",
+                tag: "Academic Crisis",
+                title: "DEADLINE DISASTER: Teacher Ghosts Group Chat!",
+                desc: "A project is failing because the teacher left the leader on 'Read'. Members blame the leader, the leader blames the teacher.",
+                caseId: "ghostTeacher"
+            },
+            {
+                /* อัปเดตลิงก์รูปรถ Gogo Bike แล้ว */
+                bg: "url('https://sdgs.crru.ac.th/wp-content/uploads/2024/09/01.jpg')",
+                tag: "Transportation Incident",
+                title: "GOGO BIKE CRASH: The 40 km/h Race That Broke the Basket",
+                desc: "Students blame faulty brakes for crashing a shared bike into a bush. Eyewitnesses claim they were racing like it was Mario Kart.",
+                caseId: "bike"
+            },
+            {
+                bg: "url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=2070')",
+                tag: "Chemistry Lab",
+                title: "OUI! Partner Goes to the Bathroom for 2 Hours During Lab!",
+                desc: "Yesterday, an M5 student vanished for 2 hours during a chemistry experiment. Did they get bitten, or did they go buy snacks?",
+                caseId: "lab"
+            }
+        ];
+
+        let currentSlide = 0;
+        const heroSection = document.getElementById('hero-section');
+        const heroContent = document.getElementById('hero-content');
+        const dotsContainer = document.getElementById('hero-dots');
+
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.onclick = () => setSlide(index);
+            dotsContainer.appendChild(dot);
+        });
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlide() {
+            const slide = slides[currentSlide];
+            heroContent.style.opacity = 0;
+            setTimeout(() => {
+                heroSection.style.backgroundImage = slide.bg;
+                document.getElementById('hero-tag').innerText = slide.tag;
+                document.getElementById('hero-title').innerText = slide.title;
+                document.getElementById('hero-desc').innerText = slide.desc;
+                document.getElementById('hero-btn').setAttribute('onclick', `openModal('${slide.caseId}')`);
+                dots.forEach(d => d.classList.remove('active'));
+                dots[currentSlide].classList.add('active');
+                heroContent.style.opacity = 1;
+            }, 400); 
+        }
+
+        function nextSlide() { currentSlide = (currentSlide + 1) % slides.length; updateSlide(); }
+        function setSlide(index) { currentSlide = index; updateSlide(); clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 5000); }
+        
+        updateSlide();
+        let slideInterval = setInterval(nextSlide, 5000);
+
+    </script>
+</body>
+</html>
